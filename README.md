@@ -1,2 +1,2 @@
 # laughing-pancake
-Data Engineering projects
+Data and Engineering projects
