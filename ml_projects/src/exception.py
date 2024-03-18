@@ -9,7 +9,10 @@ def error_message_detail(error, error_detail:sys):
 
 class CustomException(Exception):
     def __init__(self, error_message:str, error_detail:sys):
+        # Get the error message with line number and file name
         self.error_message = error_message_detail(error_message, error_detail)
+        # Call the parent class constructor
         super().__init__(self.error_message)
     def __str__(self) -> str:
+        # Return the error message
         return self.error_message
