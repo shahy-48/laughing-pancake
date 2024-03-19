@@ -6,6 +6,7 @@ from src.exception import CustomException
 from src.logger import logging
 from sklearn.model_selection import train_test_split
 from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
 
 @dataclass
 class DataIngestionConfig:
@@ -20,7 +21,7 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info('Initiating data ingestion through data ingestion component')
         try:
-            students_data = pd.read_csv('data/stud.csv')
+            students_data = pd.read_csv('Notebook/stud.csv')
             logging.info('Reading csv data initiated')
 
             # saving the raw data in the artifcacts folder
@@ -44,3 +45,5 @@ if __name__ == '__main__':
     train_data_path, test_data_path = di.initiate_data_ingestion()
     df = DataTransformation()
     X_train, X_test, y_train, y_test, preprocessor_object_file_path = df.initiate_data_transformation(train_data_path, test_data_path, 'math_score')
+    chose_model_filepath = ModelTrainer().initiate_model_trainer(X_train, y_train, X_test, y_test)
+    print(chose_model_filepath)

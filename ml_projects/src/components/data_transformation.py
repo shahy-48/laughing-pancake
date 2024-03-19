@@ -71,7 +71,7 @@ class DataTransformation:
 
             logging.info('Data transformation initiated using the preprocessor object')
             preprocessor_object = self.get_data_transformer_object()
-            X_train, X_test = preprocessor_object.fit(train_data.drop(columns=to_predict, axis=1)), preprocessor_object.fit(test_data.drop(columns=to_predict, axis=1))
+            X_train, X_test = preprocessor_object.fit_transform(train_data.drop(columns=to_predict, axis=1)), preprocessor_object.fit_transform(test_data.drop(columns=to_predict, axis=1))
             y_train, y_test = train_data[to_predict], test_data[to_predict]
             logging.info('Data transformation completed')
             save_object(
