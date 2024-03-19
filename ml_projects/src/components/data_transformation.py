@@ -35,7 +35,9 @@ class DataTransformation:
                 'lunch',
                 'test_preparation_course',
             ]
-
+            logging.info(f'Numerical features identified : {numerical_features}')
+            logging.info(f'Categorical features identified : {categorical_features}')
+            logging.info(f'Creating the preprocessor object using the identified features')
             numerical_pipleline = Pipeline(steps=[
                 ('imputer', SimpleImputer(strategy='median')),
                 ('scaler', StandardScaler())
@@ -53,7 +55,7 @@ class DataTransformation:
                     ('categorical_pipeline', categorical_pipeline, categorical_features)
                 ]
             )
-            logging.info('Preprocessor object created')
+            logging.info('Preprocessor object created successfully')
             return preprocessor
         
         except Exception as e:
