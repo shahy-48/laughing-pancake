@@ -5,6 +5,7 @@ import sys
 from src.exception import CustomException
 from src.logger import logging
 from sklearn.model_selection import train_test_split
+from src.components.data_transformation import DataTransformation
 
 @dataclass
 class DataIngestionConfig:
@@ -37,3 +38,9 @@ class DataIngestion:
             return self.ingestion_config.train_data_path, self.ingestion_config.test_data_path
         except Exception as e:
             raise CustomException(e,sys)
+
+if __name__ == '__main__':
+    di = DataIngestion()
+    train_data_path, test_data_path = di.initiate_data_ingestion()
+    df = DataTransformation()
+    X_train, X_test, y_train, y_test, preprocessor_object_file_path = df.initiate_data_transformation(train_data_path, test_data_path, 'math_score')

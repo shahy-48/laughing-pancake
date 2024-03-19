@@ -7,4 +7,5 @@ seaborn
 sklearn
 catboost
 xgboost
+dill
 -e .
