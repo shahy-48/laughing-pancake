@@ -19,7 +19,7 @@ from xgboost import XGBRegressor
 from dataclasses import dataclass
 from src.logger import logging
 from src.exception import CustomException
-from src.utils import save_object, evaluate_model
+from src.utils import save_object, evaluate_model, tune_hyperparameters
 
 @dataclass
 class ModelTrainerConfig:
@@ -35,11 +35,8 @@ class ModelTrainer:
             logging.info('Initiating the model training process')
             models = {
                 "Linear Regression": LinearRegression(),
-                "Lasso": Lasso(),
-                "Ridge": Ridge(),
-                "K-Neighbors Regressor": KNeighborsRegressor(),
                 "Decision Tree": DecisionTreeRegressor(),
-                "Random Forest Regressor": RandomForestRegressor(),
+                "Random Forest": RandomForestRegressor(),
                 "XGBRegressor": XGBRegressor(), 
                 "CatBoosting Regressor": CatBoostRegressor(verbose=False),
                 "AdaBoost Regressor": AdaBoostRegressor()
@@ -49,7 +46,10 @@ class ModelTrainer:
             mae_list = []
             rmse_list = []
             for model_name, model in models.items():
-                logging.info(f'Training the model: {model_name}')
+                logging.info(f'Searching for best hyperparameters for {model_name}')
+                gs = tune_hyperparameters(model, model_name, X_train, y_train)
+                logging.info(f'Training the model: {model_name} with the best hyperparameters found')
+                model.set_params(**gs.best_params_)
                 model.fit(X_train, y_train)
                 y_test_pred = model.predict(X_test)
                 model_test_mae , model_test_rmse, model_test_r2 = evaluate_model(y_test, y_test_pred)
