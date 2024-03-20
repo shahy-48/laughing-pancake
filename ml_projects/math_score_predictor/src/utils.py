@@ -76,6 +76,7 @@ def tune_hyperparameters(model, model_name, X_train, y_train):
     return gs
 
 def load_object(file_path):
+    """Loads the object from the specified file path"""
     try:
         with open(file_path, "rb") as file_obj:
             return pickle.load(file_obj)
