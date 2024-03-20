@@ -3,6 +3,7 @@ import sys
 import numpy as np
 import pandas as pd
 import dill
+import pickle
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.model_selection import GridSearchCV
 from src.exception import CustomException
@@ -73,3 +74,11 @@ def tune_hyperparameters(model, model_name, X_train, y_train):
     gs = GridSearchCV(model,para,cv=3)
     gs.fit(X_train,y_train)
     return gs
+
+def load_object(file_path):
+    try:
+        with open(file_path, "rb") as file_obj:
+            return pickle.load(file_obj)
+
+    except Exception as e:
+        raise CustomException(e, sys)
