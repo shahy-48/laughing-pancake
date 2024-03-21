@@ -4,7 +4,7 @@ x-spark-common: &spark-common
   image: bitnami/spark:latest
   volumes:
       - ./jobs:/opt/bitnami/spark/jobs
-  command: bin/spark-class org.apache.spark.deploy.worker.worker spark://spark-master:7077
+  command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
   depends_on:
     - spark-master
   environment:
@@ -46,13 +46,16 @@ services:
         condition: service_healthy
     networks:
      - my-network
+    expose:
+      - "9092"
     ports:
       - "9092:9092"
+      - "29092:29092"
     environment:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_HOST_NAME: ${KAFKA_HOSTNAME:-kafka}
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${KAFKA_HOSTNAME:-kafka}:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     healthcheck:
       test: ["CMD", "bash", "-c", "nc -z localhost 9092"]
