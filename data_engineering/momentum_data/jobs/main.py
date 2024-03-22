@@ -15,7 +15,7 @@ longitude_increment = (birmingham_coordinates['longitude'] - london_coordinates[
 
 # Environment variables for configuration
 kafka_bootstrap_server = os.getenv('kafka_bootstrap_servers', 'localhost:29092')
-vehicle_topic = os.getenv('vehicle_topic','vahicle_data')
+vehicle_topic = os.getenv('vehicle_topic','vehicle_data')
 gps_topic = os.getenv('gps_topic','gps_data')
 traffic_topic = os.getenv('traffic_topic','traffic_data')
 weather_topic = os.getenv('weather_topic','weather_data')
