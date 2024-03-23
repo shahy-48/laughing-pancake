@@ -7,8 +7,12 @@ from config import configuration
 def main():
     spark = SparkSession.builder.appName('momentum_stream')\
     .config("spark.jars.packages",
-            "org.apache.spark:spark-sql-kafka-0-10_2.13:3.5.1",
-            "org.apache.hadoop:hadoop-aws:3.3.3",
+            "org.apache.commons:commons-pool2:2.8.0,"
+            "org.apache.kafka:kafka-clients:2.5.0,"
+            "org.apache.spark:spark-streaming-kafka-0-10-assembly_2.12:3.0.0-preview2,"
+            "org.apache.spark:spark-token-provider-kafka-0-10_2.13:3.5.0,"
+            "org.apache.spark:spark-sql-kafka-0-10_2.13:3.5.0,"
+            "org.apache.hadoop:hadoop-aws:3.3.1,"
             "com.amazonaws:aws-java-sdk:1.11.469")\
     .config("spark.hadoop.fs.s3a.impl","org.apache.hadoop.fs.s3a.S3AFileSystem")\
     .config("spark.hadoop.fs.s3a.access.key",configuration['AWS_ACCESS_KEY'])\
@@ -86,7 +90,7 @@ def main():
                 .option('subscribe', topic)
                 .option('startingOffsets','earliest')
                 .load()
-                .selectExpr('CAST(values AS STRING')
+                .selectExpr('CAST(value AS STRING')
                 .select(from_json(col('value'), schema)).alias('data')
                 .select('data.*')
                 .withWatermark('timestamp','2 minutes')
