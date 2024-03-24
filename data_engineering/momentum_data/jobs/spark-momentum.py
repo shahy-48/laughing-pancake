@@ -15,9 +15,9 @@ def main():
             "org.apache.hadoop:hadoop-aws:3.3.1,"
             "com.amazonaws:aws-java-sdk:1.11.469")\
     .config("spark.hadoop.fs.s3a.impl","org.apache.hadoop.fs.s3a.S3AFileSystem")\
-    .config("spark.hadoop.fs.s3a.access.key",configuration['AWS_ACCESS_KEY'])\
-    .config("spark.hadoop.fs.s3a.secret.key",configuration['AWS_SECRET_KEY'])\
-    .config("spark.hadoop.fs.s3a.aws.credentials.provider",'org.apache.hadoop.fs.s3a.impl.SimpleAWSCredentialsProvider')\
+    .config("spark.hadoop.fs.s3a.access.key",configuration.get('AWS_ACCESS_KEY'))\
+    .config("spark.hadoop.fs.s3a.secret.key",configuration.get('AWS_SECRET_KEY'))\
+    .config("spark.hadoop.fs.s3a.aws.credentials.provider",'org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider')\
     .getOrCreate()
 
 # adjust the log level to minimize the console output on executors
@@ -90,10 +90,10 @@ def main():
                 .option('subscribe', topic)
                 .option('startingOffsets','earliest')
                 .load()
-                .selectExpr('CAST(value AS STRING')
+                .selectExpr('CAST(value AS STRING)')
                 .select(from_json(col('value'), schema)).alias('data')
                 .select('data.*')
-                .withWatermark('timestamp','2 minutes')
+                # .withWatermark('timestamp','2 minutes')
                 )
     
     def stream_writer(input:DataFrame, checkpoint_folder, output):
@@ -142,3 +142,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# docker exec -it momentum_data-spark-master-1 spark-submit --master spark://spark-master:7077 --packages org.apache.commons:commons-pool2:2.11.1,org.apache.kafka:kafka-clients:3.3.0,org.apache.spark:spark-streaming-kafka-0-10_2.12:3.3.0,org.apache.spark:spark-token-provider-kafka-0-10_2.12:3.3.0,org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0,org.apache.hadoop:hadoop-aws:3.3.1,com.amazonaws:aws-java-sdk:1.11.469 jobs/spark-momentum.py
+
+# kafka-clients-3.3.0.jar
+# spark-sql-kafka-0-10_2.12-3.3.0.jar
+# spark-streaming-kafka-0-10_2.12-3.3.0.jar
+# spark-token-provider-kafka-0-10_2.12-3.3.0.jar
