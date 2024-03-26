@@ -1,0 +1,4 @@
+fastai
+fastbook
+fastdownload
+-e .
