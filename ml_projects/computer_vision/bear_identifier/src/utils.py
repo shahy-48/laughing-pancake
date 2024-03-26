@@ -18,3 +18,12 @@ def save_object(file_path:str, object_to_save:object)->None:
     
     except Exception as e:
         raise CustomException(e,sys)
+
+def load_object(file_path):
+    """Loads the object from the specified file path"""
+    try:
+        with open(file_path, "rb") as file_obj:
+            return pickle.load(file_obj)
+
+    except Exception as e:
+        raise CustomException(e, sys)
