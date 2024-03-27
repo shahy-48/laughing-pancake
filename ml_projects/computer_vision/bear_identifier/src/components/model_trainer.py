@@ -15,6 +15,7 @@ class ModelTrainer:
         self.model_trainer_config = ModelTrainerConfig()
 
     def initiate_model_training(self):
+        """Trains the model using folder labels and downloaded images"""
         try:
             logging.info("Starting model training process")
             data = DataIngestion()
@@ -27,7 +28,8 @@ class ModelTrainer:
                             get_y=parent_label,
                             item_tfms=Resize(128, method='squish')
                             )
-            logging.info("Applying augmenttation transforms...")
+            logging.info("Applying augmentation transforms...")
+            # adding both augmentation and random resizing to make model more robust
             bears = bears.new(
                             item_tfms=RandomResizedCrop(224, min_scale=0.5),
                             batch_tfms=aug_transforms()

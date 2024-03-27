@@ -17,6 +17,7 @@ class DataIngestion:
         self.ingestion_config = DataIngestionConfig()
     
     def initiate_data_ingestion(self):
+        """Ingests data using duckduckgo search and downloading images from url"""
         logging.info("Starting data ingestion")
         try:
             logging.info("Searching for images through duckduckgo...")
@@ -26,6 +27,7 @@ class DataIngestion:
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True)
             path = Path(self.ingestion_config.raw_data_path)
             for search in searches:
+                # Downloading images under correct folder names
                 destination = (path/search)
                 destination.mkdir(exist_ok = True, parents = True)
                 download_images(destination, urls=search_images_ddg(f'{search} photo'))
@@ -36,6 +38,7 @@ class DataIngestion:
                 sleep(10)
                 resize_images(destination, max_size=400, dest=destination)
             logging.info("Images downloaded successfully")
+            
             # remove failed image downloads
             failed = verify_images(get_image_files(path))
             failed.map(Path.unlink)
