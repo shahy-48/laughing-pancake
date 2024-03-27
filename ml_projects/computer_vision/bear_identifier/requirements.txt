@@ -1,4 +1,5 @@
 fastai
 fastbook
 fastdownload
+gradio
 -e .

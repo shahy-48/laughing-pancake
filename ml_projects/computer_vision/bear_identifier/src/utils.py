@@ -2,6 +2,9 @@ import os
 import sys
 import dill
 import pickle
+from fastai.vision.all import *
+import fastbook
+import fastdownload
 from src.exception import CustomException
 from src.logger import logging
 
@@ -22,8 +25,7 @@ def save_object(file_path:str, object_to_save:object)->None:
 def load_object(file_path):
     """Loads the object from the specified file path"""
     try:
-        with open(file_path, "rb") as file_obj:
-            return pickle.load(file_obj)
+        return load_learner(file_path)
 
     except Exception as e:
         raise CustomException(e, sys)
