@@ -1,8 +1,4 @@
-# Data and Engineering projects
-This repository contains numerous end-to-end data projects that were built to showcase demo versions of actual projects that I had to work on. It also contains a few projects that were done as part of the general learning process i.e. not actual work projects but just side projects.
-
 # Data Engineering Projects
-
 
 ## 1. Online Retail Data - Retail Project
 
@@ -19,4 +15,8 @@ This repository contains numerous end-to-end data projects that were built to sh
 | CustomerID | Customer number. Nominal, a 5-digit integral number uniquely assigned to each customer. |
 | Country | Country name. Nominal, the name of the country where each customer resides. |	
 
-# AI & ML projects
+**Pipeline**
+![Pipeline](https://github.com/shahy-48/laughing-pancake/tree/main/data_engineering/docs/images/de_pipeline_retail.png)
+
+**Data Model**
+![Data Model ERD](https://github.com/shahy-48/laughing-pancake/tree/main/data_engineering/docs/images/de_pipeline_retail.png)
