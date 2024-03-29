@@ -1,6 +1,6 @@
 # Data Engineering Projects
 
-## 1. Online Retail Data - Retail Project
+## 1. Online Retail Data - Batch Data
 
 **Dataset**: https://www.kaggle.com/datasets/tunguz/online-retail
 
@@ -20,3 +20,34 @@
 
 **Data Model**
 ![alt text](docs/images/de_datamodel_retail.png)
+
+### Tools used
+1. Python
+2. SQL
+3. dbt
+4. Airflow (Astro CLI)
+5. Google Bigquery
+6. Google cloud storage bucket
+7. Soda
+8. Metabase
+9. Docker
+
+
+## 2. Momentum(Escooter) Project - Streaming Data
+
+**Dataset**: Augmented using random variables to imitate escooter and related data
+	
+
+**System Architecture**
+![alt text](image.png)
+
+### Tools used
+1. Apache Kafka
+2. Apache Spark
+3. Zookeeper
+4. Docker(Docker Compose)
+5. Kafka Connect
+6. Schema Registry
+7. AWS S3 + Redshift
+8. Python
+9. SQL
