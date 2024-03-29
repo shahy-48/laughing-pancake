@@ -16,7 +16,7 @@
 | Country | Country name. Nominal, the name of the country where each customer resides. |	
 
 **Pipeline**
-![Pipeline](https://github.com/shahy-48/laughing-pancake/tree/main/data_engineering/docs/images/de_pipeline_retail.png)
+![alt text](docs/images/de_pipeline_retail.png)
 
 **Data Model**
-![Data Model ERD](https://github.com/shahy-48/laughing-pancake/tree/main/data_engineering/docs/images/de_pipeline_retail.png)
+![alt text](docs/images/de_datamodel_retail.png)
