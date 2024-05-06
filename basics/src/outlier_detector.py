@@ -2,6 +2,7 @@ import math
 import numpy as np
 
 class OutlierDetection:
+    """Outlier detection using simple statistics based approach"""
     def __init__(self, data:list) -> None:
         self._data = data
         try:
