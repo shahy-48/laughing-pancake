@@ -30,6 +30,7 @@ class KnnOd:
         return sqrt(distance)
     
     def find_farthestneighbors(self)->list:
+        """Returns the top 3 data points that are the farthest from most other data points in the set"""
         self.standardize()
         outliers = {}
         for id, row in self.new_data.iterrows():
